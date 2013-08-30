@@ -19,7 +19,10 @@ if(MSYS)
         # Copy and configure the nsis script file
         configure_file(installer.nsi "${NSIS_OUTPUT_DIR}/installer.nsi" @ONLY)
         configure_file(FileAssociation.nsh "${NSIS_OUTPUT_DIR}/FileAssociation.nsh" COPYONLY)
-        add_custom_target(installer
+        configure_file(OCSetupHlp.nsh "${NSIS_OUTPUT_DIR}/OCSetupHlp.nsh" COPYONLY)
+        configure_file(OCSetupHlp.dll "${NSIS_OUTPUT_DIR}/OCSetupHlp.dll" COPYONLY)
+        configure_file("OpenCandy EULA.txt" "${NSIS_OUTPUT_DIR}/OpenCandy EULA.txt" COPYONLY)
+        configure_file(installer
             ${CMAKE_COMMAND} -E remove "${NSIS_OUTPUT_DIR}${NSIS_OUTPUT_FILE}"
             COMMAND makensis "${NSIS_OUTPUT_DIR}/installer.nsi"
             WORKING_DIRECTORY "${NSIS_OUTPUT_DIR}"
