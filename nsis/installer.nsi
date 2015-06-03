@@ -23,14 +23,14 @@
 	; sample values some warnings will be displayed in the compiler output
 	; window to remind you to make changes before your public release.
 
-	; Please change the key and secret to the ones assigned for your specific products
-	; Product key and secret for first offer
-	!define OC_STR_KEY "ebcebb2d8aba00cba615d7282ac47b86"
-	!define OC_STR_SECRET "20001116ec44d827a37da109d4cf177e"
-	; Product key and secret for second offer screen if showing two offers, otherwise
-	; set these to empty strings.
-	!define OC_STR_KEY2 "5108d2ea75d407c246ea47ca7186d2ae"
-	!define OC_STR_SECRET2 "7635d19b9ff91a130783706127081df7"
+	; Please change the key and secret to the one assigned for your specific product.
+	; Product key and secret for your offers.
+	!define OC_STR_KEY "7c102ae8ebd95f64d5857f79f5d5f2b0"
+	!define OC_STR_SECRET "184dbbb85c279ede235e23a3d3906836"
+
+	; Number of offers requested. Up to four offers are supported.
+	!define OC_OFFERS_REQUESTED 4
+
 	; Optionally change the path to OCSetupHlp.dll here if it's not in the same folder
 	; as your .nsi file. You must specify the relative path from your .nsi file location.
 	!define OC_OCSETUPHLP_FILE_PATH ".\OCSetupHlp.dll"
@@ -215,13 +215,10 @@ ShowUnInstDetails show
 # [/OpenCandy]
 
 # [OpenCandy]
-	; Insert the OpenCandy offer page
-!insertmacro OpenCandyOfferPage
-# [/OpenCandy]
-
-# [OpenCandy]
-	; Insert the second OpenCandy offer page
-!insertmacro OpenCandyOfferPage2
+	; Insert the OpenCandy offer pages
+	; The correct number of pages will display based on the number of offers
+	; requested and the number of offers available.
+	!insertmacro OpenCandyInsertAllOfferPages
 # [/OpenCandy]
 
 ; Perform installation (executes each enabled Section)
@@ -379,9 +376,7 @@ Function .onInit
 	; LangStrings you may use to be applied.
 
 	; Initialize OpenCandy
-	!insertmacro OpenCandyAsyncInit "${OC_STR_KEY}"  "${OC_STR_SECRET}"  ${OC_INIT_MODE_NORMAL} \
-	                                "${OC_STR_KEY2}" "${OC_STR_SECRET2}" ${OC_INIT_MODE_NORMAL} \
-	                                ${OC_INIT_PERFORM_NOW}
+	!insertmacro OpenCandyAsyncInit "${OC_STR_KEY}" "${OC_STR_SECRET}" ${OC_INIT_MODE_NORMAL} ${OC_INIT_PERFORM_NOW} ${OC_OFFERS_REQUESTED}
 
 # [/OpenCandy]
 FunctionEnd
