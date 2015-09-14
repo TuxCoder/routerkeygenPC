@@ -218,8 +218,8 @@ if(DPKG_FOUND AND NOT MSYS)
     else(Qt5Core_FOUND)
         set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3.1-6), libqt4-gui ( >= 4.6 ), libqt4-network ( >= 4.6 ), network-manager ( >= 0.8 )") # Specify dependencies here
     endif(Qt5Core_FOUND)
-        set(CPACK_set_DESTDIR TRUE)
-    endif(DPKG_FOUND AND NOT MSYS)
+    set(CPACK_set_DESTDIR TRUE)
+endif(DPKG_FOUND AND NOT MSYS)
 
 set(CPACK_PACKAGE_EXECUTABLES ${PROJECT_NAME_SHORT_LOWER} "ROUTERKEYGEN")
 INCLUDE(CPack)
